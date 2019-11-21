@@ -1,0 +1,82 @@
+swagger: "2.0"
+info:
+  description: "Enter description here"
+  version: "1.0.0"
+  title: "ASET Indoor Climate Station"
+  termsOfService: "http://swagger.io/terms/"
+host: "ics.aset.tu-berlin.de"
+basePath: "/v1"
+schemes:
+- "https"
+- "http"
+paths:
+  /sensordata:
+    get:
+      summary: "Get all sensor data"
+      operationId: "getSensorData"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+        - name: "sourceId"
+          in: "query"
+          description: ""
+          required: false
+          type: "string"
+        - name: "sensorId"
+          in: "query"
+          description: ""
+          required: false
+          type: "string"
+        - name: "latestOnly"
+          in: "query"
+          description: "If true, return only the latest data for each sensor"
+          required: false
+          type: "boolean"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SensorData"
+    post:
+      summary: "Add new sensor data to the server"
+      description: ""
+      operationId: "addSensorData"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Sensor data object"
+        required: true
+        schema:
+          $ref: "#/definitions/SensorData"
+      responses:
+        405:
+          description: "Invalid input"
+
+definitions:
+  SensorData:
+    type: "object"
+    properties:
+      sourceId:
+        type: "string"
+      sensorId:
+        type: "string"
+      value:
+        type: "number"
+        format: "double"
+      unit:
+        type: "string"
+      timestamp:
+        type: "string"
+        format: "date-time"
