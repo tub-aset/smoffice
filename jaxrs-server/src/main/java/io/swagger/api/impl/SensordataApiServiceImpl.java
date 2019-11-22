@@ -7,7 +7,6 @@ import io.swagger.model.SensorData;
 import io.swagger.api.NotFoundException;
 import io.swagger.api.store.DataStore;
 
-import java.text.ParseException;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
