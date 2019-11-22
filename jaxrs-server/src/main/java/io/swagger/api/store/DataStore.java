@@ -1,4 +1,4 @@
-package store;
+package io.swagger.api.store;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.crypto.Data;
-
-import io.swagger.api.store.DataEntry;
 
 public class DataStore {
 

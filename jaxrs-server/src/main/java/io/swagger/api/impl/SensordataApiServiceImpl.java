@@ -4,12 +4,12 @@ import io.swagger.api.*;
 import io.swagger.model.*;
 
 import io.swagger.model.SensorData;
-import store.DataStore;
 
 import java.util.ArrayList;
 import java.util.List;
 import io.swagger.api.NotFoundException;
 import io.swagger.api.store.DataEntry;
+import io.swagger.api.store.DataStore;
 
 import java.io.InputStream;
 
