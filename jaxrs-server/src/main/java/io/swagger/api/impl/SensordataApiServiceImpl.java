@@ -6,6 +6,7 @@ import io.swagger.model.*;
 import io.swagger.model.SensorData;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import io.swagger.api.NotFoundException;
 import io.swagger.api.store.DataEntry;
@@ -29,11 +30,11 @@ public class SensordataApiServiceImpl extends SensordataApiService {
 	@Override
 	public Response addSensorData(SensorData body, SecurityContext securityContext) throws NotFoundException {
 
-		DataEntry entry = new DataEntry(body.getSourceId(), body.getSensorId(), body.getTimestamp().toString(),
-				body.getUnit(), body.getValue());
-
+		body.setTimestamp(new Date());
 		
-		ds.generateRandomData();
+		ds.put(body);
+		
+		//ds.generateRandomData();
 
 		return Response.ok().build();
 	}
@@ -56,6 +57,7 @@ public class SensordataApiServiceImpl extends SensordataApiService {
 			return Response.ok().build();
 		}
 
+		
 		// return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK,
 		// "magic!")).build();
 	}

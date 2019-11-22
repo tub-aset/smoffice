@@ -11,6 +11,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.model.SensorData;
+
 public class DataStore {
 
 	private String path = "data.csv";
@@ -31,7 +33,7 @@ public class DataStore {
 
 	}
 
-	public void put(DataEntry entry) {
+	public void put(SensorData entry) {
 		try {
 			FileWriter fr = new FileWriter(csvFile, true);
 			BufferedWriter br = new BufferedWriter(fr);
@@ -39,9 +41,9 @@ public class DataStore {
 
 			StringBuilder sb = new StringBuilder();
 
-			sb.append(entry.getSourceID());
+			sb.append(entry.getSourceId());
 			sb.append(",");
-			sb.append(entry.getSensorID());
+			sb.append(entry.getSensorId());
 			sb.append(",");
 			sb.append(entry.getTimestamp());
 			sb.append(",");
