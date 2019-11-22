@@ -74,22 +74,14 @@ public class DataStore {
 		}
 	}
 
-	public List<SensorData> getAll() throws ParseException {
+	public List<SensorData> getAll() {
 		String row = "";
 		List<SensorData> entries = new ArrayList<SensorData>();
 		try {
 			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
-				SensorData entry = new SensorData();
-				entry.setSourceId(data[0]);
-				entry.setSensorId(data[1]);
-				DateFormat format = new SimpleDateFormat(dateformat);
-				Date date = format.parse(data[2]);
-				entry.setTimestamp(date);
-				entry.setUnit(data[3]);
-				entry.setValue(Double.valueOf(data[4]));
-				entries.add(entry);
+				entries.add(extractValues(data));
 			}
 			csvReader.close();
 		} catch (IOException e) {
@@ -98,7 +90,7 @@ public class DataStore {
 		return entries;
 	}
 
-	public List<SensorData> getSource(String sourceID) throws ParseException {
+	public List<SensorData> getSource(String sourceID) {
 		String row = "";
 		List<SensorData> entries = new ArrayList<SensorData>();
 		try {
@@ -106,15 +98,7 @@ public class DataStore {
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
 				if (data[0].contentEquals(sourceID)) {
-					SensorData entry = new SensorData();
-					entry.setSourceId(data[0]);
-					entry.setSensorId(data[1]);
-					DateFormat format = new SimpleDateFormat(dateformat);
-					Date date = format.parse(data[2]);
-					entry.setTimestamp(date);
-					entry.setUnit(data[3]);
-					entry.setValue(Double.valueOf(data[4]));
-					entries.add(entry);
+					entries.add(extractValues(data));
 				} else {
 					continue;
 				}
@@ -126,7 +110,7 @@ public class DataStore {
 		return entries;
 	}
 
-	public List<SensorData> getSensor(String sensorID) throws ParseException {
+	public List<SensorData> getSensor(String sensorID) {
 		String row = "";
 		List<SensorData> entries = new ArrayList<SensorData>();
 		try {
@@ -134,15 +118,7 @@ public class DataStore {
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
 				if (data[1].contentEquals(sensorID)) {
-					SensorData entry = new SensorData();
-					entry.setSourceId(data[0]);
-					entry.setSensorId(data[1]);
-					DateFormat format = new SimpleDateFormat(dateformat);
-					Date date = format.parse(data[2]);
-					entry.setTimestamp(date);
-					entry.setUnit(data[3]);
-					entry.setValue(Double.valueOf(data[4]));
-					entries.add(entry);
+					entries.add(extractValues(data));
 				} else {
 					continue;
 				}
@@ -154,7 +130,7 @@ public class DataStore {
 		return entries;
 	}
 
-	public List<SensorData> getSourceSensor(String sensorID, String sourceID) throws ParseException {
+	public List<SensorData> getSourceSensor(String sensorID, String sourceID) {
 		String row = "";
 		List<SensorData> entries = new ArrayList<SensorData>();
 		try {
@@ -162,15 +138,7 @@ public class DataStore {
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
 				if (data[0].contentEquals(sourceID) && data[1].contentEquals(sensorID)) {
-					SensorData entry = new SensorData();
-					entry.setSourceId(data[0]);
-					entry.setSensorId(data[1]);
-					DateFormat format = new SimpleDateFormat(dateformat);
-					Date date = format.parse(data[2]);
-					entry.setTimestamp(date);
-					entry.setUnit(data[3]);
-					entry.setValue(Double.valueOf(data[4]));
-					entries.add(entry);
+					entries.add(extractValues(data));
 				} else {
 					continue;
 				}
@@ -180,6 +148,23 @@ public class DataStore {
 			e.printStackTrace();
 		}
 		return entries;
+	}
+
+	private SensorData extractValues(String[] data) {
+		SensorData entry = new SensorData();
+		entry.setSourceId(data[0]);
+		entry.setSensorId(data[1]);
+		Date date;
+		try {
+			DateFormat format = new SimpleDateFormat(dateformat);
+			date = format.parse(data[2]);
+			entry.setTimestamp(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		entry.setUnit(data[3]);
+		entry.setValue(Double.valueOf(data[4]));
+		return entry;
 	}
 
 	public List<SensorTypes> getSensorTypes() {
