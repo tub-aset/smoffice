@@ -39,29 +39,26 @@ public class SensordataApiServiceImpl extends SensordataApiService {
 	public Response getSensorData(String sourceId, String sensorId, Boolean latestOnly, SecurityContext securityContext)
 			throws NotFoundException {
 
-//		if (sourceId != null && sensorId != null) {
-//		// get values from specific source & Sensor
-//		return Response.ok().build();
-//	} else if (sourceId == null && sensorId != null) {
-//		// get valus for specific sensor
-//		return Response.ok().build();
-//	} else if (sourceId != null && sensorId == null) {
-//		// get values for specific source
-//		return Response.ok().build();
-//	} else {
-//		// get all values for all sources and sensors
-//		return Response.ok().build();
-//	}
+		try {
+		if (sourceId != null && sensorId != null) {
+			// get values from specific source & Sensor
+			return Response.ok(ds.getSourceSensor(sensorId, sourceId)).build();
+		} else if (sourceId == null && sensorId != null) {
+			// get valus for specific sensor
+			return Response.ok(ds.getSensor(sensorId)).build();
+		} else if (sourceId != null && sensorId == null) {
+			// get values for specific source
+			return Response.ok(ds.getSource(sourceId)).build();
+		} else {
+			// get all values for all sources and sensors
+			return Response.ok(ds.getAll()).build();
+		}
 	
-	List<SensorData> response;
-	try {
-		response = ds.get();
-		return Response.ok(response).build();
-	} catch (ParseException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		return Response.ok().build();
-	}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.ok("Exception encountered").build();
+		}
 		
 		// return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK,
 		// "magic!")).build();
