@@ -107,8 +107,8 @@ public class DataStore {
 				String[] data = row.split(",");
 				if (data[1].contentEquals(sourceID)) {
 					SensorData entry = new SensorData();
-					entry.setSensorId(data[0]);
-					entry.setSourceId(data[1]);
+					entry.setSourceId(data[0]);
+					entry.setSensorId(data[1]);
 					DateFormat format = new SimpleDateFormat(dateformat);
 					Date date = format.parse(data[2]);
 					entry.setTimestamp(date);
