@@ -81,14 +81,14 @@ public class DataStore {
 		return entries;
 	}
 
-	public void generateRandomData() {
-		double temp = Math.random() * 30;
-		for (int i = 10; i < 60; i++) {
-			String time = "2019-11-22T09:" + i + ":00.000Z";
-			temp = temp + Math.random() * 2 - 1;
-			DataEntry entry = new DataEntry("1", "1", time, "C", temp);
-			put(entry);
-		}
-	}
+//	public void generateRandomData() {
+//		double temp = Math.random() * 30;
+//		for (int i = 10; i < 60; i++) {
+//			String time = "2019-11-22T09:" + i + ":00.000Z";
+//			temp = temp + Math.random() * 2 - 1;
+//			DataEntry entry = new SensorData("1", "1", time, "C", temp);
+//			put(entry);
+//		}
+//	}
 
 }
