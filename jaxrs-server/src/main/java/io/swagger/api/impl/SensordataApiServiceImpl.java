@@ -8,6 +8,7 @@ import io.swagger.model.SensorData;
 import java.util.ArrayList;
 import java.util.List;
 import io.swagger.api.NotFoundException;
+import io.swagger.api.store.DataEntry;
 
 import java.io.InputStream;
 
@@ -27,17 +28,33 @@ public class SensordataApiServiceImpl extends SensordataApiService {
     @Override
     public Response addSensorData(SensorData body, SecurityContext securityContext) throws NotFoundException {
     	
-    	String[] entry = {body.getSourceId(),body.getSensorId(),body.getUnit(),body.getValue().toString(), body.getTimestamp().toString()};
+//    	String[] entry = {body.getSourceId(),body.getSensorId(),body.getUnit(),body.getValue().toString(), body.getTimestamp().toString()};
+//    	
+//    	store.add(entry);
     	
-    	store.add(entry);
+    	DataEntry entry = new DataEntry(body.getSourceId(), body.getSensorId(), body.getTimestamp().toString(), body.getUnit(), body.getValue());
+    	
+    	// write entry to file
+    	
         return Response.ok().build();
     }
     @Override
     public Response getSensorData( String sourceId,  String sensorId,  Boolean latestOnly, SecurityContext securityContext) throws NotFoundException {
-        // do some magic!
-        System.out.println(store.get(0)[0].toString());
-        return Response.ok(store.get(0)[0].toString()).build();
-    	
+        
+    	if (sourceId!=null && sensorId!= null) {
+    		// get values from specific source & Sensor
+    		return Response.ok().build();
+    	} else if (sourceId==null && sensorId!= null) {
+    		// get valus for specific sensor
+    		return Response.ok().build();
+    	} else if (sourceId!=null && sensorId== null) {
+    		// get values for specific source
+    		return Response.ok().build();
+    	} else {
+    		// get all values for all sources and sensors
+    		return Response.ok().build();
+    	}
+            	
         //return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
 }
