@@ -3,7 +3,6 @@ package io.swagger.api.store;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,17 +12,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import io.swagger.model.SensorData;
+import io.swagger.model.SensorTypes;
 
 public class DataStore {
 
 	private String path = "data.csv";
 
 	private File csvFile;
-	
-	private String dateformat="yyyy-mm-dd hh:mm:ss";
+
+	private String dateformat = "yyyy-mm-dd hh:mm:ss";
 
 	public DataStore() {
 
@@ -95,7 +97,7 @@ public class DataStore {
 		}
 		return entries;
 	}
-	
+
 	public List<SensorData> getSource(String sourceID) throws ParseException {
 		String row = "";
 		List<SensorData> entries = new ArrayList<SensorData>();
@@ -103,63 +105,7 @@ public class DataStore {
 			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
-				if(data[1].contentEquals(sourceID)) {
-					SensorData entry = new SensorData();
-					entry.setSensorId(data[0]);
-					entry.setSourceId(data[1]);
-					DateFormat format = new SimpleDateFormat(dateformat);
-					Date date = format.parse(data[2]);
-					entry.setTimestamp(date);
-					entry.setUnit(data[3]);
-					entry.setValue(Double.valueOf(data[4]));
-					entries.add(entry);
-				} else {
-					continue;
-				}
-			}
-			csvReader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return entries;
-	}
-	
-	public List<SensorData> getSensor(String sensorID) throws ParseException {
-		String row = "";
-		List<SensorData> entries = new ArrayList<SensorData>();
-		try {
-			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
-			while ((row = csvReader.readLine()) != null) {
-				String[] data = row.split(",");
-				if(data[0].contentEquals(sensorID)) {
-					SensorData entry = new SensorData();
-					entry.setSensorId(data[0]);
-					entry.setSourceId(data[1]);
-					DateFormat format = new SimpleDateFormat(dateformat);
-					Date date = format.parse(data[2]);
-					entry.setTimestamp(date);
-					entry.setUnit(data[3]);
-					entry.setValue(Double.valueOf(data[4]));
-					entries.add(entry);
-				} else {
-					continue;
-				}
-			}
-			csvReader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return entries;
-	}
-	
-	public List<SensorData> getSourceSensor(String sensorID, String sourceID) throws ParseException {
-		String row = "";
-		List<SensorData> entries = new ArrayList<SensorData>();
-		try {
-			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
-			while ((row = csvReader.readLine()) != null) {
-				String[] data = row.split(",");
-				if(data[0].contentEquals(sensorID) && data[1].contentEquals(sourceID)) {
+				if (data[1].contentEquals(sourceID)) {
 					SensorData entry = new SensorData();
 					entry.setSensorId(data[0]);
 					entry.setSourceId(data[1]);
@@ -180,20 +126,86 @@ public class DataStore {
 		return entries;
 	}
 
-//	public void generateRandomData() {
-//		double temp = Math.random() * 30;
-//		Date date = new Date();
-//
-//		for (int i = 10; i < 60; i++) {
-//			date = date.
-//			temp = temp + Math.random() * 2 - 1;
-//			SensorData entry = new SensorData();
-//			entry.setSensorId("1");
-//			entry.setSourceId("1");
-//			entry.setTimestamp(date);
-//			entry.setValue(temp);
-//			put(entry);
-//		}
-//	}
+	public List<SensorData> getSensor(String sensorID) throws ParseException {
+		String row = "";
+		List<SensorData> entries = new ArrayList<SensorData>();
+		try {
+			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
+			while ((row = csvReader.readLine()) != null) {
+				String[] data = row.split(",");
+				if (data[0].contentEquals(sensorID)) {
+					SensorData entry = new SensorData();
+					entry.setSensorId(data[0]);
+					entry.setSourceId(data[1]);
+					DateFormat format = new SimpleDateFormat(dateformat);
+					Date date = format.parse(data[2]);
+					entry.setTimestamp(date);
+					entry.setUnit(data[3]);
+					entry.setValue(Double.valueOf(data[4]));
+					entries.add(entry);
+				} else {
+					continue;
+				}
+			}
+			csvReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return entries;
+	}
+
+	public List<SensorData> getSourceSensor(String sensorID, String sourceID) throws ParseException {
+		String row = "";
+		List<SensorData> entries = new ArrayList<SensorData>();
+		try {
+			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
+			while ((row = csvReader.readLine()) != null) {
+				String[] data = row.split(",");
+				if (data[0].contentEquals(sensorID) && data[1].contentEquals(sourceID)) {
+					SensorData entry = new SensorData();
+					entry.setSensorId(data[0]);
+					entry.setSourceId(data[1]);
+					DateFormat format = new SimpleDateFormat(dateformat);
+					Date date = format.parse(data[2]);
+					entry.setTimestamp(date);
+					entry.setUnit(data[3]);
+					entry.setValue(Double.valueOf(data[4]));
+					entries.add(entry);
+				} else {
+					continue;
+				}
+			}
+			csvReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return entries;
+	}
+
+	public List<SensorTypes> getSensorTypes() {
+
+		String row = "";
+		Set<String> strSensors = new HashSet<String>();
+		try {
+			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
+			while ((row = csvReader.readLine()) != null) {
+				String[] data = row.split(",");
+				strSensors.add(data[1]);
+			}
+			csvReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		List<SensorTypes> sensors = new ArrayList<SensorTypes>();
+		for (String sensor : strSensors) {
+			SensorTypes entry = new SensorTypes();
+			entry.setSensorId(sensor);
+			sensors.add(entry);
+		}
+
+		return sensors;
+
+	}
 
 }

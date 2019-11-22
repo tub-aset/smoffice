@@ -5,7 +5,7 @@ import io.swagger.model.*;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
-import io.swagger.model.SensorData;
+import io.swagger.model.SensorTypes;
 
 import java.util.List;
 import io.swagger.api.NotFoundException;
@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2019-11-22T13:40:08.591Z")
-public abstract class SensordataApiService {
-    public abstract Response addSensorData(SensorData body,SecurityContext securityContext) throws NotFoundException;
-    public abstract Response getSensorData( String sourceId, String sensorId, Boolean latestOnly,SecurityContext securityContext) throws NotFoundException;
+public abstract class SensortypesApiService {
+    public abstract Response getSensorTypes(SecurityContext securityContext) throws NotFoundException;
 }
