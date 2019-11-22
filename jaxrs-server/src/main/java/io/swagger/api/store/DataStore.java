@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,14 +68,21 @@ public class DataStore {
 		}
 	}
 
-	public List<DataEntry> get() {
+	public List<SensorData> get() throws ParseException {
 		String row = "";
-		List<DataEntry> entries = new ArrayList<DataEntry>();
+		List<SensorData> entries = new ArrayList<SensorData>();
 		try {
 			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
-				DataEntry entry = new DataEntry(data[0], data[1], data[2], data[3], Double.valueOf(data[4]));
+				DateFormat format = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
+				Date date = format.parse(data[2]);
+				SensorData entry = new SensorData();
+				entry.setSensorId(data[0]);
+				entry.setSourceId(data[1]);
+				entry.setTimestamp(date);
+				entry.setUnit(data[3]);
+				entry.setValue(Double.valueOf(data[4]));
 				entries.add(entry);
 			}
 			csvReader.close();
