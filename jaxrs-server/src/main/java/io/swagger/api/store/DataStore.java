@@ -1,6 +1,7 @@
 package io.swagger.api.store;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -34,7 +35,9 @@ public class DataStore {
 
 	public void put(DataEntry entry) {
 		try {
-			PrintWriter csvWriter = new PrintWriter(csvFile);
+			FileWriter fr = new FileWriter(csvFile, true);
+			BufferedWriter br = new BufferedWriter(fr);
+			PrintWriter csvWriter = new PrintWriter(br);
 
 			StringBuilder sb = new StringBuilder();
 
@@ -47,13 +50,16 @@ public class DataStore {
 			sb.append(entry.getUnit());
 			sb.append(",");
 			sb.append(entry.getValue());
+			sb.append("\r\n");
 
 			csvWriter.write(sb.toString());
 
 			csvWriter.flush();
 			csvWriter.close();
+			br.close();
+			fr.close();
 
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}
