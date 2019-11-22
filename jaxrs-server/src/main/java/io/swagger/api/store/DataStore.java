@@ -8,7 +8,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.swagger.model.SensorData;
@@ -83,10 +85,16 @@ public class DataStore {
 
 //	public void generateRandomData() {
 //		double temp = Math.random() * 30;
+//		Date date = new Date();
+//
 //		for (int i = 10; i < 60; i++) {
-//			String time = "2019-11-22T09:" + i + ":00.000Z";
+//			date = date.
 //			temp = temp + Math.random() * 2 - 1;
-//			DataEntry entry = new SensorData("1", "1", time, "C", temp);
+//			SensorData entry = new SensorData();
+//			entry.setSensorId("1");
+//			entry.setSourceId("1");
+//			entry.setTimestamp(date);
+//			entry.setValue(temp);
 //			put(entry);
 //		}
 //	}

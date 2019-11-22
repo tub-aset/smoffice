@@ -23,7 +23,6 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2019-11-21T14:54:57.056Z")
 public class SensordataApiServiceImpl extends SensordataApiService {
 
-	private List<String[]> store = new ArrayList<String[]>();
 
 	private DataStore ds = new DataStore();
 
@@ -32,8 +31,6 @@ public class SensordataApiServiceImpl extends SensordataApiService {
 
 		ds.put(body);
 		
-		//ds.generateRandomData();
-
 		return Response.ok().build();
 	}
 
