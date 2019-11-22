@@ -22,6 +22,8 @@ public class DataStore {
 	private String path = "data.csv";
 
 	private File csvFile;
+	
+	private String dateformat="yyyy-mm-dd hh:mm:ss";
 
 	public DataStore() {
 
@@ -49,7 +51,9 @@ public class DataStore {
 			sb.append(",");
 			sb.append(entry.getSensorId());
 			sb.append(",");
-			sb.append(entry.getTimestamp());
+			DateFormat format = new SimpleDateFormat(dateformat);
+			String strDate = format.format(entry.getTimestamp());
+			sb.append(strDate);
 			sb.append(",");
 			sb.append(entry.getUnit());
 			sb.append(",");
@@ -75,11 +79,11 @@ public class DataStore {
 			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
-				DateFormat format = new SimpleDateFormat("dow mon dd hh:mm:ss zzz yyyy");
-				Date date = format.parse(data[2]);
 				SensorData entry = new SensorData();
 				entry.setSensorId(data[0]);
 				entry.setSourceId(data[1]);
+				DateFormat format = new SimpleDateFormat(dateformat);
+				Date date = format.parse(data[2]);
 				entry.setTimestamp(date);
 				entry.setUnit(data[3]);
 				entry.setValue(Double.valueOf(data[4]));
