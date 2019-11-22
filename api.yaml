@@ -10,6 +10,23 @@ schemes:
 - "https"
 - "http"
 paths:
+  /sensortypes:
+    get:
+      summary: "Get all sensor types"
+      operationId: "getSensorTypes"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SensorTypes"
   /sensordata:
     get:
       summary: "Get all sensor data"
@@ -65,6 +82,11 @@ paths:
           description: "Invalid input"
 
 definitions:
+  SensorTypes:
+    type: "object"
+    properties:
+      sensorId:
+        type: "string"
   SensorData:
     type: "object"
     properties:
