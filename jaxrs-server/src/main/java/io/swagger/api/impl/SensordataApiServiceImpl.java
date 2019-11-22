@@ -4,6 +4,7 @@ import io.swagger.api.*;
 import io.swagger.model.*;
 
 import io.swagger.model.SensorData;
+import store.DataStore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public class SensordataApiServiceImpl extends SensordataApiService {
 	
 	private List<String[]> store = new ArrayList<String[]>();
 	
+	private DataStore ds = new DataStore();
+	
 	
 	
 	
@@ -34,7 +37,7 @@ public class SensordataApiServiceImpl extends SensordataApiService {
     	
     	DataEntry entry = new DataEntry(body.getSourceId(), body.getSensorId(), body.getTimestamp().toString(), body.getUnit(), body.getValue());
     	
-    	// write entry to file
+    	ds.put(entry);
     	
         return Response.ok().build();
     }

@@ -10,6 +10,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.crypto.Data;
+
+import io.swagger.api.store.DataEntry;
+
 public class DataStore {
 
 	private String path = "data.csv";
@@ -30,15 +34,21 @@ public class DataStore {
 
 	}
 
-	public void put(String sensorID) {
+	public void put(DataEntry entry) {
 		try {
 			PrintWriter csvWriter = new PrintWriter(csvFile);
 
 			StringBuilder sb = new StringBuilder();
 
-			sb.append(sensorID);
+			sb.append(entry.getSourceID());
 			sb.append(",");
-			sb.append("Test");
+			sb.append(entry.getSensorID());
+			sb.append(",");
+			sb.append(entry.getTimestamp());
+			sb.append(",");
+			sb.append(entry.getUnit());
+			sb.append(",");
+			sb.append(entry.getValue());
 
 			csvWriter.write(sb.toString());
 
@@ -50,14 +60,15 @@ public class DataStore {
 		}
 	}
 
-	public List<String[]> get() {
+	public List<DataEntry> get() {
 		String row = "";
-		List<String[]> entries = new ArrayList<String[]>();
+		List<DataEntry> entries = new ArrayList<DataEntry>();
 		try {
 			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
-				entries.add(data);
+				DataEntry entry = new DataEntry(data[0], data[1], data[2], data[3], Double.valueOf(data[4]));
+				entries.add(entry);
 			}
 			csvReader.close();
 		} catch (IOException e) {
