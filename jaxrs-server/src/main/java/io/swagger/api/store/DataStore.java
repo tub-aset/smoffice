@@ -75,7 +75,7 @@ public class DataStore {
 			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
-				DateFormat format = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
+				DateFormat format = new SimpleDateFormat("dow mon dd hh:mm:ss zzz yyyy");
 				Date date = format.parse(data[2]);
 				SensorData entry = new SensorData();
 				entry.setSensorId(data[0]);
