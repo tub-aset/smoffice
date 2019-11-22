@@ -24,7 +24,7 @@ import javax.validation.constraints.*;
 /**
  * SensorData
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2019-11-21T14:54:57.056Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2019-11-22T14:49:02.090Z")
 public class SensorData   {
   @JsonProperty("sourceId")
   private String sourceId = null;

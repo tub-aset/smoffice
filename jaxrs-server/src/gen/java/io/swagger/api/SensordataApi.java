@@ -29,7 +29,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the sensordata API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2019-11-22T13:40:08.591Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2019-11-22T14:49:02.090Z")
 public class SensordataApi  {
    private final SensordataApiService delegate;
 
@@ -75,9 +75,10 @@ public class SensordataApi  {
         @io.swagger.annotations.ApiResponse(code = 200, message = "", response = SensorData.class, responseContainer = "List") })
     public Response getSensorData(@ApiParam(value = "") @QueryParam("sourceId") String sourceId
 ,@ApiParam(value = "") @QueryParam("sensorId") String sensorId
-,@ApiParam(value = "If true, return only the latest data for each sensor") @QueryParam("latestOnly") Boolean latestOnly
+,@ApiParam(value = "the time at which the query answer starts") @QueryParam("start") String start
+,@ApiParam(value = "the time at which the query answer ends") @QueryParam("end") String end
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.getSensorData(sourceId,sensorId,latestOnly,securityContext);
+        return delegate.getSensorData(sourceId,sensorId,start,end,securityContext);
     }
 }

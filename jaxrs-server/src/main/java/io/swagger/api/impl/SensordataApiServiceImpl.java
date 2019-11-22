@@ -25,7 +25,7 @@ public class SensordataApiServiceImpl extends SensordataApiService {
 	}
 
 	@Override
-	public Response getSensorData(String sourceId, String sensorId, Boolean latestOnly,
+	public Response getSensorData(String sourceId, String sensorId, String start, String end,
 			SecurityContext securityContext) {
 
 		if (sourceId != null && sensorId != null) {
