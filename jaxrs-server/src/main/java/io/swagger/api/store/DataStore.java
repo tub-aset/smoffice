@@ -105,7 +105,7 @@ public class DataStore {
 			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
-				if (data[1].contentEquals(sourceID)) {
+				if (data[0].contentEquals(sourceID)) {
 					SensorData entry = new SensorData();
 					entry.setSourceId(data[0]);
 					entry.setSensorId(data[1]);
@@ -133,7 +133,7 @@ public class DataStore {
 			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
-				if (data[0].contentEquals(sensorID)) {
+				if (data[1].contentEquals(sensorID)) {
 					SensorData entry = new SensorData();
 					entry.setSourceId(data[0]);
 					entry.setSensorId(data[1]);
@@ -161,7 +161,7 @@ public class DataStore {
 			BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
 			while ((row = csvReader.readLine()) != null) {
 				String[] data = row.split(",");
-				if (data[0].contentEquals(sensorID) && data[1].contentEquals(sourceID)) {
+				if (data[0].contentEquals(sourceID) && data[1].contentEquals(sensorID)) {
 					SensorData entry = new SensorData();
 					entry.setSourceId(data[0]);
 					entry.setSensorId(data[1]);
