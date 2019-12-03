@@ -10,6 +10,23 @@ schemes:
 - "https"
 - "http"
 paths:
+  /sensortypes:
+    get:
+      summary: "Get all sensor types"
+      operationId: "getSensorTypes"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SensorTypes"
   /sensordata:
     get:
       summary: "Get all sensor data"
@@ -31,11 +48,16 @@ paths:
           description: ""
           required: false
           type: "string"
-        - name: "latestOnly"
+        - name: "start"
           in: "query"
-          description: "If true, return only the latest data for each sensor"
+          description: "the time at which the query answer starts"
           required: false
-          type: "boolean"
+          type: "string"
+        - name: "end"
+          in: "query"
+          description: "the time at which the query answer ends"
+          required: false
+          type: "string"
       responses:
         200:
           description: ""
@@ -65,6 +87,11 @@ paths:
           description: "Invalid input"
 
 definitions:
+  SensorTypes:
+    type: "object"
+    properties:
+      sensorId:
+        type: "string"
   SensorData:
     type: "object"
     properties:
