@@ -382,9 +382,9 @@ public class DataStore {
 	public Date convertDatestring(String rawDate) throws ParseException {
 		final String dateformat = "yyyy-MM-dd'T'hh:mm:ss.sss";
 		DateFormat format = new SimpleDateFormat(dateformat);
-		System.out.println(rawDate);
+//		System.out.println(rawDate);
 		Date date = format.parse(rawDate);
-		System.out.println(format.format(date));
+//		System.out.println(format.format(date));
 		return date;
 	}
 	
