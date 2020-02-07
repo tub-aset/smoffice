@@ -26,7 +26,7 @@ public class DataStore {
 
 	private File csvFile;
 
-	public static final String dateformat = "yyyy-mm-dd'T'hh:mm:ss.sss";
+	public static final String dateformat = "yyyy-MM-dd'T'hh:mm:ss.sss";
 
 	public DataStore() {
 
@@ -54,7 +54,7 @@ public class DataStore {
 			sb.append(",");
 			sb.append(entry.getSensorId());
 			sb.append(",");
-			final String dateformat = "yyyy-mm-dd'T'hh:mm:ss.sss";
+			final String dateformat = "yyyy-MM-dd'T'hh:mm:ss.sss";
 			DateFormat format = new SimpleDateFormat(dateformat);
 			String strDate = format.format(entry.getTimestamp()) + "Z";
 			sb.append(strDate);
@@ -380,7 +380,7 @@ public class DataStore {
 	}
 
 	public Date convertDatestring(String rawDate) throws ParseException {
-		final String dateformat = "yyyy-mm-dd'T'hh:mm:ss.sss";
+		final String dateformat = "yyyy-MM-dd'T'hh:mm:ss.sss";
 		DateFormat format = new SimpleDateFormat(dateformat);
 		System.out.println(rawDate);
 		Date date = format.parse(rawDate);
