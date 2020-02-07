@@ -24,8 +24,8 @@ public class SensordataApiServiceImpl extends SensordataApiService {
 	@Override
 	public Response addSensorData(SensorData body, SecurityContext securityContext) throws NotFoundException {
 
-//		ds.put(body);
-		ds.generateRandomData();
+		ds.put(body);
+//		ds.generateRandomData();
 
 		return Response.ok().build();
 	}
