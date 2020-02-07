@@ -48,11 +48,16 @@ paths:
           description: ""
           required: false
           type: "string"
-        - name: "latestOnly"
+        - name: "start"
           in: "query"
-          description: "If true, return only the latest data for each sensor"
+          description: "the time at which the query answer starts"
           required: false
-          type: "boolean"
+          type: "string"
+        - name: "end"
+          in: "query"
+          description: "the time at which the query answer ends"
+          required: false
+          type: "string"
       responses:
         200:
           description: ""
